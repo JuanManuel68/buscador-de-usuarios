@@ -40,7 +40,6 @@ export default function App() {
     (query) => {
       const q = query.trim().toLowerCase()
       setSearching(true)
-      // Pequeño debounce simulado para que se aprecie el loading
       setTimeout(() => {
         const resultados = usuarios.filter((usuario) =>
           [
@@ -76,20 +75,25 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 text-slate-100">
-      <header className="sticky top-0 z-10 backdrop-blur bg-slate-900/70 border-b border-slate-800">
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Header */}
+      <header className="sticky top-0 z-10 backdrop-blur bg-white/80 border-b border-purple-200">
         <div className="max-w-6xl mx-auto px-4 py-5 flex items-center gap-4">
-          <h1 className="text-2xl font-bold tracking-tight">Buscador de Usuarios</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-purple-600">
+            Buscador de Usuarios
+          </h1>
           <div className="flex-1 max-w-xl ml-auto">
             <SearchInput onSearch={filtrarUsuarios} />
           </div>
           <div className="flex items-center gap-4">
             {user && (
-              <span className="text-slate-300 text-sm">Bienvenido, {user.username}</span>
+              <span className="text-gray-600 text-sm">
+                Bienvenido, {user.username}
+              </span>
             )}
-            <button 
+            <button
               onClick={logout}
-              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors duration-200 text-sm font-medium"
+              className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-md transition-colors duration-200 text-sm font-medium"
             >
               Cerrar Sesión
             </button>
@@ -97,9 +101,10 @@ export default function App() {
         </div>
       </header>
 
+      {/* Main */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         {error && (
-          <div className="mb-6 p-3 rounded bg-red-500/10 border border-red-500/30 text-red-200">
+          <div className="mb-6 p-3 rounded bg-purple-100 border border-purple-300 text-purple-700">
             {error}
           </div>
         )}
@@ -111,10 +116,24 @@ export default function App() {
         ) : (
           <>
             {searching && (
-              <div className="flex items-center gap-3 text-slate-300 mb-4">
-                <svg className="animate-spin h-5 w-5 text-blue-400" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              <div className="flex items-center gap-3 text-purple-600 mb-4">
+                <svg
+                  className="animate-spin h-5 w-5 text-purple-400"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
                 </svg>
                 <span>Buscando...</span>
               </div>
@@ -133,24 +152,30 @@ export default function App() {
         )}
       </main>
 
+      {/* Modal */}
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {loadingDetalle ? (
           <div className="flex items-center justify-center py-12">
             <div className="spinner"></div>
           </div>
         ) : detalle ? (
-          <div className="flex flex-col items-center text-slate-900">
+          <div className="flex flex-col items-center text-gray-900">
             <img
               src={detalle.foto}
               alt={`${detalle.nombre} ${detalle.apellidos}`}
-              className="w-24 h-24 rounded-full ring-4 ring-blue-500/30"
+              className="w-24 h-24 rounded-full ring-4 ring-purple-300"
             />
-            <h3 className="mt-4 text-xl font-bold">
+            <h3 className="mt-4 text-xl font-bold text-purple-700">
               {detalle.nombre} {detalle.apellidos}
             </h3>
-            <p className="text-slate-600 mt-1">{detalle.perfil}</p>
-            <p className="text-slate-500 text-sm mt-1 italic">{detalle.intereses}</p>
-            <a className="text-blue-600 mt-2" href={`mailto:${detalle.correo}`}>
+            <p className="text-gray-600 mt-1">{detalle.perfil}</p>
+            <p className="text-gray-500 text-sm mt-1 italic">
+              {detalle.intereses}
+            </p>
+            <a
+              className="text-purple-600 mt-2"
+              href={`mailto:${detalle.correo}`}
+            >
               {detalle.correo}
             </a>
           </div>
@@ -160,4 +185,5 @@ export default function App() {
       </Modal>
     </div>
   )
-}
+            }
+        
