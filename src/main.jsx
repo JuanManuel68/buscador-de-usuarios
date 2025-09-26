@@ -8,7 +8,6 @@ import PrivateRoute from './components/privateRouter.jsx'
 import { Navigate } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <AuthProvider>
